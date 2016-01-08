@@ -1,0 +1,11 @@
+---
+- name: Get information for existing PODs
+  uri:
+    url: http://{{ rest_srvr }}:{{ rest_port }}/openclos/pods
+    method: GET
+    status_code: 200
+    return_content: yes
+  register: json_response
+
+- name: Response for GET ReST call
+  copy: content="{{ json_response.content }}" dest={{ get_log_path }}

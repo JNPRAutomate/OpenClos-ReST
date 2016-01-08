@@ -1,0 +1,26 @@
+---
+  - name: Load config on devices
+    hosts: num
+    roles:
+     - Juniper.junos
+    connection: local
+    gather_facts: yes
+
+    tasks:
+
+     - name: Creating local config cache - List files
+       shell: "cp {{ out_conf_path }}/*-{{ item.pod.name.0 }}/*{{ item.pod.name.1.role }}.conf {{ build_dir }}/{{ item.pod.name.1.mgt_ip }}.conf"
+       with_items:
+         - "{{ devs }}"
+
+
+     - name: Loading configuration files
+       junos_install_config:
+         host={{ item.pod.name.1.mgt_ip }}
+         file={{ build_dir }}/{{ item.pod.name.1.mgt_ip }}.conf
+         comment="configured by ansible"
+         overwrite=false
+         user={{ username }}
+         passwd={{ passwd }}
+       with_items:
+         - "{{ devs }}"

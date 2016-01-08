@@ -1,0 +1,21 @@
+---
+- name: Initiate ReST calls for OpenClos
+  hosts: pods
+  connection: local
+  gather_facts: no
+
+  pre_tasks:
+  - name: Optional Cleanup - OpenClos out
+    shell: "rm -Rf {{ opt_out }}"
+  - name: Optional Cleanup - Logs
+    shell: "rm -Rf {{ build_dir }}"
+  - name: Remove log directory
+    file: path={{ build_dir }} state=absent
+    register: logdir
+  - name: Create log directory for responses from ReST calls
+    file: path={{logdir.path}} state=directory
+
+  roles:
+    - get-pod-info
+    - create-pod
+    - get-pod-info

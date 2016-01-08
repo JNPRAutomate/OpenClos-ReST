@@ -1,0 +1,34 @@
+{
+{% for pod in pods.params %}
+{% if  pod.name  ==   inventory_hostname  %}
+  "pod": {
+    "name": "{{ pod.name }}",
+    "spineDeviceType": {{ pod.spineDeviceType }},
+    "spineCount": {{ pod.spineCount }},
+    "spineAS": {{ pod.spineAS }},
+    "spineJunosImage": {{ pod.spineJunosImage }},
+    "leafSettings": [{%- for leaf in pod.leafSettings %}{"deviceType": {{ leaf.deviceType }}, "junosImage": {{ leaf.junosImage }} }],{% endfor %}
+    "leafCount": {{ pod.leafCount }},
+    "leafAS": {{ pod.leafAS }},
+    "topologyType": {{ pod.topologyType }},
+    "loopbackPrefix": {{ pod.loopbackPrefix }},
+    "vlanPrefix": {{ pod.vlanPrefix }},
+    "interConnectPrefix": {{ pod.interConnectPrefix }},
+    "outOfBandAddressList": {{ pod.outOfBandAddressList }},
+    "outOfBandGateway": {{ pod.outOfBandGateway }},
+    "managementPrefix": {{ pod.managementPrefix}},
+    "description": {{ pod.description }},
+    "vcCreateLag": {{ pod.vcCreateLag }},
+    "hostOrVmCountPerLeaf": {{ pod.hostOrVmCountPerLeaf }},
+    "devicePassword": {{ pod.devicePassword }},
+    "devices": [
+    {%- for dev in pod.devices %}
+       {"name": {{ dev.name }}, "family": {{ dev.family }}, "serialNumber": {{ dev.serialNumber }}, "username": {{ dev.username }}, "password": {{ dev.password }}, "serialNumber": {{ dev.serialNumber }}, "role": {{ dev.role }}, "deployStatus": {{ dev.deployStatus }} }{{ dev.sep }}
+    {% endfor %}
+    ]
+
+  }
+{% endif %}
+{% endfor %}
+
+}

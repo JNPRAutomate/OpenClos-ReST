@@ -1,0 +1,50 @@
+---
+- name: JSON template for POST
+  template: src=post-json.j2 dest={{ json_file_path }}-{{ inventory_hostname }}.json
+
+- name: chmod
+  file: path={{ build_dir }} state=directory mode=777
+
+- name: Create new POD/s - POST
+  uri:
+    url: http://{{ rest_srvr }}:{{ rest_port }}/openclos/pods
+    method: POST
+    return_content: yes
+    HEADER_Content-Type: 'application/json;charset=UTF-8'
+    body: "{{ lookup('file',json_file_path ~ '-' ~ inventory_hostname ~ '.json') }}"
+    status_code: 201
+  register: json_response
+
+
+- name: Response for POST ReST call
+  copy: content="{{ json_response.content }}" dest={{ post_log_path }}
+
+- name: Parse output for POST response to generate POD PUT
+  debug: msg="{{ json_response.json.pod.deviceConfiguration.uri }}"
+
+
+- name: Create new POD/s - PUT
+  uri:
+    url: http://{{ rest_srvr }}:{{ rest_port }}/openclos/pods/{{ json_response.json.pod.id }}/device-configuration
+    method: PUT
+    status_code: 200
+    return_content: yes
+
+
+- name: Parse output for POST response to generate Cabling PUT
+  debug: msg="{{ json_response.json.pod.id }}"
+
+
+- name: Create cabling plan for new POD/s - PUT
+  uri:
+    url: http://{{ rest_srvr }}:{{ rest_port }}/openclos/pods/{{ json_response.json.pod.id }}/cabling-plan
+    method: PUT
+    status_code: 200
+    return_content: yes
+
+
+- name: Save POD IDs
+  debug: msg="{{ json_response.json.pod.id }}"
+
+- name: Save POD Name
+  debug: msg="{{ json_response.json.pod.name }}"

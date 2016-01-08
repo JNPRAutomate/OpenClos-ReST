@@ -1,0 +1,57 @@
+---
+pods:
+  params:
+    - name: POD-1
+      spineDeviceType: '"qfx5100-24q-2p"'
+      spineCount: 2
+      spineAS: 100                             #starts assignment with spine-0
+      spineJunosImage: '"abcd.tgz"'
+      leafSettings: [{deviceType: '"qfx5100-48s-6q"', junosImage: '"abcd.tgz"'}]
+      leafCount: 4
+      leafAS: 200                              #starts assignment with leaf-0
+      topologyType: '"threeStage"'
+      loopbackPrefix: '"1.1.1.1/24"'           #Starts assignment with leaf-0 and increments - eg: leaf-0 lo0 = 1.1.1.1/32, leaf-1 lo0 = 1.1.1.2/32 .. spine-2 lo0 = 1.1.1.6/32
+      vlanPrefix: '"3.3.3.3/22"'               #irb interface IP on leaf devices
+      interConnectPrefix: '"2.2.2.2/24"'       #physical interface IP - strats assignment for each spine-leaf connection starting with spine-0
+      outOfBandAddressList: '"0.0.0.0/0"'      #OOB prefix
+      outOfBandGateway: '"10.92.63.254"'       #OOB next-hop
+      managementPrefix: '"10.92.35.44/19"'     #mgt ip starts assignment from spine-0 and then increments
+      description: '"test POD"'
+      vcCreateLag: 'false'
+      hostOrVmCountPerLeaf: 254
+      devicePassword: '"Embe1mpls"'
+      devices: [
+        {name: '"spine-0"', family: '"qfx5100-24q-2p"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-000"', role: '"spine"', deployStatus: '"deploy"', sep: ','},
+        {name: '"spine-1"', family: '"qfx5100-24q-2p"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-001"', role: '"spine"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-0"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-002"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-1"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-003"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-2"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-004"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-3"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-005"', role: '"leaf"', deployStatus: '"deploy"', sep: ''}
+        ]
+    - name: POD-2
+      spineDeviceType: '"qfx5100-24q-2p"'
+      spineCount: 2
+      spineAS: 100
+      spineJunosImage: '"abcd.tgz"'
+      leafSettings: [{deviceType: '"qfx5100-48s-6q"', junosImage: '"abcd.tgz"'}]
+      leafCount: 4
+      leafAS: 200
+      topologyType: '"threeStage"'
+      loopbackPrefix: '"11.1.1.1/24"'
+      vlanPrefix: '"33.3.3.3/22"'
+      interConnectPrefix: '"22.2.2.2/24"'
+      outOfBandAddressList: '"20.204.244.95"'
+      outOfBandGateway: '"20.204.244.254"'
+      managementPrefix: '"44.4.4.0/24"'
+      description: '"test POD"'
+      vcCreateLag: 'false'
+      hostOrVmCountPerLeaf: 254
+      devicePassword: '"Embe1mpls"'
+      devices: [
+        {name: '"spine-0"', family: '"qfx5100-24q-2p"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-000"', role: '"spine"', deployStatus: '"deploy"', sep: ','},
+        {name: '"spine-1"', family: '"qfx5100-24q-2p"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-001"', role: '"spine"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-0"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-002"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-1"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-003"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-2"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-004"', role: '"leaf"', deployStatus: '"deploy"', sep: ','},
+        {name: '"leaf-3"', family: '"qfx5100-48s-6q"', username: '"root"', password: '"Embe1mpls"', serialNumber: '"JNPR-005"', role: '"leaf"', deployStatus: '"deploy"', sep: ''}
+        ]

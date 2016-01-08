@@ -1,0 +1,24 @@
+rest_srvr: 192.168.1.126
+rest_port: 8080
+build_dir: /Users/deeptic/Desktop/deeptic/Desktop/ReST-Logs
+json_file_path: /Users/deeptic/Desktop/deeptic/Desktop/ReST-Logs/mk-pod
+get_log_path: "/Users/deeptic/Desktop/deeptic/Desktop/ReST-Logs/get-pod-info-{{ inventory_hostname }}-{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}.log"
+post_log_path: "/Users/deeptic/Desktop/deeptic/Desktop/ReST-Logs/post-pod-info-{{ inventory_hostname }}-{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}.log"
+out_conf_path: "/Users/deeptic/OpenClos-devR2.5/jnpr/openclos/out"
+opt_out: "/Users/deeptic/OpenClos-devR2.5/jnpr/openclos/out/*"
+username: "root"
+passwd: "Embe1mpls"
+
+devs:
+      - pod:  {name: ['POD-1' , {role: "spine-0", mgt_ip: "10.92.40.224"}]}
+      - pod:  {name: ['POD-1' , {role: "spine-1", mgt_ip: "10.92.39.221"}]}
+      - pod:  {name: ['POD-1' , {role: "leaf-0", mgt_ip: "10.92.39.220"}]}
+      - pod:  {name: ['POD-1' , {role: "leaf-1", mgt_ip: "10.92.39.22"}]}
+      - pod:  {name: ['POD-1' , {role: "leaf-2", mgt_ip: "10.92.39.127"}]}
+      - pod:  {name: ['POD-1' , {role: "leaf-3", mgt_ip: "10.92.39.124"}]}
+#      - pod:  {name: ['POD-2' , {role: "spine-0", mgt_ip: "10.161.52.111"}]}
+#     - pod:  {name: ['POD-2' , {role: "spine-1", mgt_ip: "10.161.52.108"}]}
+#      - pod:  {name: ['POD-2' , {role: "leaf-0", mgt_ip: "10.161.52.107"}]}
+#      - pod:  {name: ['POD-2' , {role: "leaf-1", mgt_ip: "10.161.52.104"}]}
+#      - pod:  {name: ['POD-2' , {role: "leaf-2", mgt_ip: "10.161.52.103"}]}
+#      - pod:  {name: ['POD-2' , {role: "leaf-3", mgt_ip: "10.161.52.100"}]}
